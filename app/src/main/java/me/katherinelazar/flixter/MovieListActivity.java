@@ -129,14 +129,6 @@ public class MovieListActivity extends AppCompatActivity {
                 //get the image base url
                 try {
 
-                    JSONObject images = response.getJSONObject("images");
-
-                    imageBaseUrl = images.getString("secure_base_url");
-
-
-                    JSONArray posterSizeOptions = images.getJSONArray("poster_sizes");
-
-                    posterSize = posterSizeOptions.optString(3, "w342");
 
                     Log.i(TAG, String.format("loaded configuration with imagebaseurl %s and posterSize %s", imageBaseUrl, posterSize));
 
