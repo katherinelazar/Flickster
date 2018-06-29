@@ -2,16 +2,21 @@ package me.katherinelazar.flixter.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
+@Parcel
 public class Movie {
 
     //values coming back from api
 
-    private String title;
-    private String overview;
-    private String posterPath;
+    String title;
+    String overview;
+    String posterPath;
+    String backdropPath;
+    Double voteAverage;
 
-    private String backdropPath;
+    // Empty constructor for Parceler
+    public Movie() {}
 
     //initialize json data
     public Movie(JSONObject object) throws JSONException {
@@ -22,6 +27,8 @@ public class Movie {
         posterPath = object.getString("poster_path");
 
         backdropPath = object.getString("backdrop_path");
+
+        voteAverage = object.getDouble("vote_average");
     }
 
     public String getTitle() {
@@ -37,4 +44,6 @@ public class Movie {
     }
 
     public String getBackdropPath() { return backdropPath; }
+
+    public Double getVoteAverage() { return voteAverage; }
 }
