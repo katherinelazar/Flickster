@@ -37,10 +37,7 @@ public class MovieListActivity extends AppCompatActivity {
 
     //instance fields
     AsyncHttpClient client;
-    //base url for loading images
-    String imageBaseUrl;
-    // the poster size to use when getting images
-    String posterSize;
+
 
     // the list of currently playing movies
     ArrayList<Movie> movies;
