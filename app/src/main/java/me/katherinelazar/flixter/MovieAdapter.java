@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import me.katherinelazar.flixter.models.Config;
 import me.katherinelazar.flixter.models.Movie;
 
@@ -72,8 +76,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         String imageUrl = config.getImageUrl(config.getPosterSize(), movie.getPosterPath());
 
         // load image using glide
-        GlideApp.with(context)
+        Glide.with(context)
                 .load(imageUrl)
+                .apply(RequestOptions.placeholderOf(R.drawable.flicks_movie_placeholder)
+                .error(R.drawable.flicks_movie_placeholder)
+                .transform(new RoundedCornersTransformation(15, 0)))
                 .into(holder.ivPosterImage);
 
     }
