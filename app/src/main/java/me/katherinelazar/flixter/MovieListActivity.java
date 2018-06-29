@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import me.katherinelazar.flixter.models.Config;
 import me.katherinelazar.flixter.models.Movie;
 
 public class MovieListActivity extends AppCompatActivity {
@@ -47,6 +48,9 @@ public class MovieListActivity extends AppCompatActivity {
 
     // the adapter wired to the recycler view
     MovieAdapter adapter;
+
+    // image config
+    Config config;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,8 +133,16 @@ public class MovieListActivity extends AppCompatActivity {
                 //get the image base url
                 try {
 
+                    config = new Config(response);
 
-                    Log.i(TAG, String.format("loaded configuration with imagebaseurl %s and posterSize %s", imageBaseUrl, posterSize));
+
+                    Log.i(TAG,
+                            String.format("loaded configuration with imagebaseurl %s and posterSize %s",
+                                    config.getImageBaseUrl(),
+                                    config.getPosterSize()));
+
+                    // pass config to adapter
+                    adapter.setConfig(config);
 
                     //call new method from onCreate, get now playing movie
                     getNowPlaying();
