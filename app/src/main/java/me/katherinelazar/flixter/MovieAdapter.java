@@ -3,6 +3,7 @@ package me.katherinelazar.flixter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -24,23 +25,38 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     //creates and inflates a new view
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         // get context and create the inflater
         Context context = parent.getContext();
 
-        return null;
+        LayoutInflater inflater = LayoutInflater.from(context);
+
+        // create the view using the item_movie layout
+
+        View movieView = inflater.inflate(R.layout.item_movie, parent, false);
+
+
+        // return a new viewholder
+        return new ViewHolder(movieView);
     }
 
     //associates created view with a new item
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        // get the movie data at the specified position
+
+        Movie movie = movies.get(position);
+
+        // populate the view with the movie data
+        holder.tvTitle.setText(movie.getTitle());
+        holder.tvOverview.setText(movie.getOverview());
 
     }
 
     // returns number of items in the list
     @Override
     public int getItemCount() {
-        return 0;
+        return movies.size();
     }
 
     //create the viewholder as a static inner class

@@ -2,6 +2,8 @@ package me.katherinelazar.flixter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -43,6 +45,12 @@ public class MovieListActivity extends AppCompatActivity {
     // the list of currently playing movies
     ArrayList<Movie> movies;
 
+    //the recycler view
+    RecyclerView rvMovies;
+
+    // the adapter wired to the recycler view
+    MovieAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +60,14 @@ public class MovieListActivity extends AppCompatActivity {
         client = new AsyncHttpClient();
 
         movies = new ArrayList<>();
+
+        //initialize the adapter movies array cannot be reinitialized after this point
+        adapter = new MovieAdapter(movies);
+
+        //resolve the recycler view and connect a layout manager and the adapter
+        rvMovies = (RecyclerView) findViewById(R.id.rvMovies);
+        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        rvMovies.setAdapter(adapter);
 
         getConfiguration();
 
@@ -78,6 +94,9 @@ public class MovieListActivity extends AppCompatActivity {
                     for(int i = 0; i< results.length(); i ++ ) {
                         Movie movie = new Movie(results.getJSONObject(i));
                         movies.add(movie);
+
+                        // notify adapter that a row was added
+                        adapter.notifyItemInserted(movies.size() - 1);
                     }
 
                     //pass in fully formed template or prototype string
@@ -118,7 +137,7 @@ public class MovieListActivity extends AppCompatActivity {
                     imageBaseUrl = images.getString("secure_base_url");
 
 
-                    JSONArray posterSizeOptions = images.getJSONArray("poster sizes");
+                    JSONArray posterSizeOptions = images.getJSONArray("poster_sizes");
 
                     posterSize = posterSizeOptions.optString(3, "w342");
 
