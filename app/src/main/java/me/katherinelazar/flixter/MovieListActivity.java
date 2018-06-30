@@ -39,7 +39,6 @@ public class MovieListActivity extends AppCompatActivity {
     //instance fields
     AsyncHttpClient client;
 
-
     // the list of currently playing movies
     ArrayList<Movie> movies;
 
